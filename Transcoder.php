@@ -56,13 +56,15 @@ class Transcoder{
     public function isSupportedExt($ext){
     	return in_array($ext, self::$supportedExts);
     }
+    public function getExt($file){
+    	return substr($file, strrpos($file, '.')+1);
+    }
     public function getTranscodeCmd($file, $toExt){
     	return $this->_ffmpegTranscodeVideoCommands($file, array($toExt))[0];
     }
     public function listVideoFiles($dir){
     	$paths=array_filter(scandir($dir), function($p){
-			$ext = substr($p, strrpos($p, '.')+1);
-			return $this->isSupportedExt($ext);
+			return $this->isSupportedExt($this->getExt($p);
 		});
 
 		return $paths;
@@ -85,6 +87,9 @@ if (realpath($argv[0]) === __FILE__) {
 		if($transcoder->isSupportedExt($argv[1])){
 			echo 'Transcoding to: '.$argv[1]."\n";
 			foreach($paths as $path){
+				if($transcoder->getExt($path)===$argv[1]){
+					continue;
+				}
 				$cmd=$transcoder->getTranscodeCmd($dir.'/'.$path, $argv[1]);
 				echo $cmd."\n\n";
 				system($cmd, $retval);
