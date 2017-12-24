@@ -14,7 +14,19 @@
 class Transcoder{
 
 	protected static $ffmpeg='ffmpeg';
-	protected static $supportedExts=array('mkv', 'mp4');
+	protected static $supportedExts=array(
+		'flv',
+        'f4v',
+        'mov',
+        'avi',
+        'mp4',
+        'ogv',
+        'mpeg',
+        'm4v',
+        'wmv',
+        'mts',
+        'mkv'
+    );
 
 
 	/**
