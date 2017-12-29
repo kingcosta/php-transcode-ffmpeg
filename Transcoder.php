@@ -13,8 +13,18 @@
 
 class Transcoder{
 
+    /**
+     * bash ffmpeg command. sometimes in different locations ie /usr/bin/ffmpeg
+     * @var string
+     */
 	protected static $ffmpeg='ffmpeg';
+
+    /**
+     * list of supported extentions. many more exts are likely possible
+     * @var array
+     */
 	protected static $supportedExts=array(
+
 		'flv',
         'f4v',
         'mov',
@@ -64,9 +74,8 @@ class Transcoder{
     }
     public function listVideoFiles($dir){
     	$paths=array_filter(scandir($dir), function($p){
-			return $this->isSupportedExt($this->getExt($p);
+			return $this->isSupportedExt($this->getExt($p));
 		});
-
 		return $paths;
     }
 
